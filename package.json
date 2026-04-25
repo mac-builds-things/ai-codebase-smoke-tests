@@ -1,0 +1,28 @@
+{
+  "name": "ai-codebase-smoke-tests",
+  "version": "0.1.0",
+  "description": "Playwright-based smoke tests designed to be run by AI agents — verify startup, routes, and critical flows before declaring a change safe.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "ts-node --esm src/runner.ts",
+    "smoke:react": "ts-node --esm src/runner.ts --scenario=scenarios/react-app.ts",
+    "smoke:next": "ts-node --esm src/runner.ts --scenario=scenarios/next-app.ts",
+    "report": "ts-node --esm -e \"import('./src/reporter.js').then(m => console.log(JSON.stringify(m.readResults(), null, 2)))\"",
+    "test": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf smoke-results dist"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.43.0",
+    "playwright": "^1.43.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
