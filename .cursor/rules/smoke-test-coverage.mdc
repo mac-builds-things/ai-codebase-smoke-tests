@@ -1,0 +1,35 @@
+---
+description: Smoke test quality standards for ai-codebase-smoke-tests
+globs: scenarios/**/*.ts,src/checks/**/*.ts
+alwaysApply: false
+---
+
+# Smoke Test Coverage Standards
+
+## Every scenario must cover these 5 checks
+1. Server startup responds
+2. Homepage loads without console errors  
+3. At least 3 routes checked for correct status codes
+4. At least 1 API endpoint verified
+5. No 5xx errors in the route matrix
+
+## Reporter output must be machine-readable
+```typescript
+// ✅ GOOD — structured JSON on stdout
+const result: SmokeResult = {
+  passed: allChecksPassed,
+  durationMs: totalTime,
+  failures: failedChecks.map(c => ({ check: c.name, reason: c.error })),
+  summary: `${passed}/${total} checks passed`,
+};
+console.log(JSON.stringify(result));
+
+// ❌ BAD — human text on stdout
+console.log("All tests passed! Great job.");
+```
+
+## Scenarios are configuration, not test logic
+Keep business logic in `src/checks/`. Scenarios should only configure which checks to run and with what parameters.
+
+## 60-second budget
+If a smoke suite takes more than 60 seconds, it has too many checks. Add to integration tests instead.

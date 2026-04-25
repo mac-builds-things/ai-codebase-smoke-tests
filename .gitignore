@@ -35,7 +35,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-.cursor/
+# .cursor/ is intentionally tracked (contains project rules and hooks)
 
 # Logs
 *.log
